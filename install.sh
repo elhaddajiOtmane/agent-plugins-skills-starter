@@ -11,7 +11,7 @@
 # the native opencode/ path.
 #
 # Usage:
-#   ./install.sh                     install core set, global scope
+#   ./install.sh                     install core + requested add-ons, global scope ( ~130 skills )
 #   ./install.sh --scope project     install into ./.opencode/skills instead
 #   ./install.sh --include-mega      also pull the two huge collections (ECC, OmniRoute)
 #   ./install.sh --force             overwrite skills that already exist locally
@@ -126,13 +126,21 @@ echo "target: $TARGET"
 [[ "$DRY_RUN" == true ]] && echo "(dry run — nothing will be written)"
 echo
 
-echo "### core skills ###"
+echo "### core skills (original 5) ###"
 echo
 process_source "Leonxlnx/taste-skill"    "skills"        1 "taste-skill (design taste / anti-slop, 13 skills)"
 process_source "DietrichGebert/ponytail" "skills"        1 "ponytail (lean/minimal-diff coding discipline, 6 skills)"
 process_source "AgriciDaniel/claude-seo" "skills"        1 "claude-seo core (technical SEO, no API keys needed, 25 skills)"
 process_source "kepano/obsidian-skills"  "skills"        1 "obsidian-skills (Obsidian CLI/Bases/Markdown, 5 skills)"
 process_source "mattpocock/skills"       "skills"        2 "mattpocock/skills (eng + productivity workflows, 37 skills)"
+
+echo "### requested add-ons ###"
+echo
+process_source "ChromeDevTools/chrome-devtools-mcp" "skills" 1 "chrome-devtools-mcp (browser automation + a11y/LCP/memory skills, 6 skills)"
+process_source "cli/cli"                             "skills" 1 "gh CLI skills (gh + gh-skill, 2 skills)"
+process_source "upstash/context7"                    "skills" 1 "context7 (up-to-date docs via CLI/MCP, 3 skills)"
+process_source "c-daly/agent-swarm"                  "skills" 1 "agent-swarm / swarm-spawner (spawn/orchestrate/parallel, 19 skills)"
+process_source "obra/superpowers"                    "skills" 1 "superpowers (brainstorming/TDD/debugging/workflows, 14 skills)"
 
 if [[ "$INCLUDE_MEGA" == true ]]; then
   echo "### mega collections (--include-mega) ###"
@@ -145,5 +153,38 @@ echo "----------------------------------------"
 echo "installed: $installed   skipped: $skipped   failed: $failed"
 echo "target:    $TARGET"
 echo
-echo "Restart OpenCode (or start a new session) and ask it to list its"
-echo "skills to confirm they loaded."
+echo "Skills done. Next: wire up MCP servers + CLIs (one-time):"
+echo
+echo "  1) Chrome DevTools MCP (already in opencode.json as 'chrome-devtools' — set enabled:true)"
+echo "     Requires Chrome + Node LTS. In opencode.json -> mcp.chrome-devtools.enabled = true"
+echo "     Command: npx -y chrome-devtools-mcp@latest --browser-url=http://127.0.0.1:9222"
+echo "     Skills installed: a11y-debugging, chrome-devtools, chrome-devtools-cli, debug-optimize-lcp, memory-leak-debugging, troubleshooting"
+echo
+echo "  2) GitHub CLI (gh) — the binary skills above call out to"
+echo "     Windows: winget install --id GitHub.cli  (or https://cli.github.com/)"
+echo "     Then auth: gh auth login"
+echo "     Optional agent skill helper: gh skill install cli/cli gh --scope user"
+echo
+echo "  3) Context7 — up-to-date library docs"
+echo "     Easiest (auto-wires skill + MCP):  npx ctx7 setup --opencode"
+echo "     Or add OpenCode plugin to opencode.json plugins: \"@upstash/context7-opencode\""
+echo "     MCP alternative: { type:\"remote\", url:\"https://mcp.context7.com/mcp\", enabled:true }"
+echo "     CLI: npm i -g ctx7  then  ctx7 docs <libId> \"<query>\""
+echo "     Skills installed: context7-cli, context7-mcp, find-docs"
+echo
+echo "  4) Agent Swarm (c-daly/agent-swarm) — the mcpmarket 'agent-swarm-spawner' listing"
+echo "     Source: https://github.com/c-daly/agent-swarm  (19 skills)"
+echo "     Claude Code: claude plugin install agent-swarm"
+echo "     For OpenCode: skills already installed (spawn, orchestrate, parallel-orchestrate, delegate, etc). No extra MCP needed."
+echo
+echo "  5) Superpowers (obra/superpowers) — 14 workflow skills"
+echo "     Already wired if you have in opencode.json plugins: \"superpowers@git+https://github.com/obra/superpowers.git\""
+echo "     If missing, add it, restart OpenCode, then ask 'tell me about your superpowers'"
+echo
+echo "  6) Super Subagents (yigitkonur/mcp-supersubagents) — MCP for parallel Codex/Copilot/Claude agents"
+echo "     No SKILL.md — it's a pure MCP server. Add to opencode.json -> mcp:"
+echo '       "supersubagents": { "type":"local", "command":["npx","-y","mcp-supersubagents"], "enabled": true }'
+echo "     Requires Node 18+. 8 tools: spawn/cancel/send-message/launch-* etc."
+echo
+echo "Full opencode.json MCP example is in ./opencode.mcp.example.json (copy/paste the 'mcp' and 'plugin' keys)."
+echo "Restart OpenCode (or start a new session) and ask it to list its skills to confirm."

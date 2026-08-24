@@ -45,6 +45,91 @@
     }
   ],
 
+  "requested_addons": [
+    {
+      "name": "chrome-devtools-mcp",
+      "repo": "ChromeDevTools/chrome-devtools-mcp",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 6,
+      "skills": ["a11y-debugging", "chrome-devtools", "chrome-devtools-cli", "debug-optimize-lcp", "memory-leak-debugging", "troubleshooting"],
+      "note": "Google's Chrome DevTools MCP + 6 skills (a11y/LCP/memory). Also an npm MCP server: npx -y chrome-devtools-mcp@latest. Requires Chrome + Node LTS.",
+      "mcp": {
+        "type": "local",
+        "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"],
+        "enabled": true,
+        "opencode_key": "chrome-devtools"
+      }
+    },
+    {
+      "name": "gh-cli-skills",
+      "repo": "cli/cli",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 2,
+      "skills": ["gh", "gh-skill"],
+      "note": "GitHub CLI官方 skills: 'gh' (patterns for invoking gh from agents) + 'gh-skill' (skill lifecycle). Also requires the gh binary itself: https://cli.github.com/  — winget install GitHub.cli on Windows, brew install gh on macOS.",
+      "binary": "https://cli.github.com/",
+      "winget": "winget install --id GitHub.cli",
+      "brew": "brew install gh"
+    },
+    {
+      "name": "context7",
+      "repo": "upstash/context7",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 3,
+      "skills": ["context7-cli", "context7-mcp", "find-docs"],
+      "note": "Up-to-date library docs. Install via: npx ctx7 setup --opencode  (auto-wires) OR add OpenCode plugin '@upstash/context7-opencode' OR add remote MCP https://mcp.context7.com/mcp. CLI package is 'ctx7' (ctx7 docs <libId> <query>).",
+      "mcp": {
+        "remote_url": "https://mcp.context7.com/mcp",
+        "plugin": "@upstash/context7-opencode",
+        "cli": "ctx7"
+      }
+    },
+    {
+      "name": "agent-swarm (swarm-spawner)",
+      "repo": "c-daly/agent-swarm",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 19,
+      "skills": ["spawn","orchestrate","parallel-orchestrate","delegate","develop","implement","plan-to-manifest","pipeline","verify","poll","remember","distill","ctx","debug","experiment","iterate","teams-develop","agent-teams-workflow","pr-comment"],
+      "note": "This is the repo behind https://mcpmarket.com/tools/skills/agent-swarm-spawner (mcpmarket listing points to github.com/c-daly/agent-swarm). 19 skills for spawning subagent swarms with role-based routing, phase gates, context isolation. Claude Code install: 'claude plugin install agent-swarm'. For OpenCode: skills are copied and work directly; no MCP required (MCP is the in-plugin router).",
+      "mcpmarket": "https://mcpmarket.com/tools/skills/agent-swarm-spawner",
+      "github": "https://github.com/c-daly/agent-swarm"
+    },
+    {
+      "name": "superpowers",
+      "repo": "obra/superpowers",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 14,
+      "skills": ["brainstorming","dispatching-parallel-agents","executing-plans","finishing-a-development-branch","receiving-code-review","requesting-code-review","subagent-driven-development","systematic-debugging","test-driven-development","using-git-worktrees","using-superpowers","verification-before-completion","writing-plans","writing-skills"],
+      "note": "Obra's 14 workflow skills (TDD/dispatch/plan/debug) + OpenCode plugin. OpenCode native install is a plugin: \"superpowers@git+https://github.com/obra/superpowers.git\" in opencode.json -> plugin[]. Skills are also copied for file-based fallback; plugin and file copy coexist.",
+      "plugin": "superpowers@git+https://github.com/obra/superpowers.git"
+    }
+  ],
+
+  "mcp_only": [
+    {
+      "name": "mcp-supersubagents",
+      "repo": "yigitkonur/mcp-supersubagents",
+      "skills_path": null,
+      "skill_count": 0,
+      "why_skills_copied": false,
+      "note": "Pure MCP server (no SKILL.md). Spawns parallel autonomous agents via Codex/Copilot/Claude backends with task dependencies, auto-rotation, templates (coder/planner/researcher/tester). Requires Node 18+. No skill copy needed — just add the MCP entry.",
+      "mcp": {
+        "type": "local",
+        "command": ["npx", "-y", "mcp-supersubagents"],
+        "enabled": true,
+        "opencode_key": "supersubagents",
+        "tools": 8,
+        "github": "https://github.com/yigitkonur/mcp-supersubagents",
+        "npm": "mcp-supersubagents"
+      }
+    }
+  ],
+
   "mega_opt_in": [
     {
       "name": "ECC",
@@ -91,7 +176,11 @@
     {"repo": "supabase/cli", "why": "Tools skills can shell out to. Install via each project's own documented method (not npm -g in Supabase's case) — see repo README."},
     {"repo": "microsoft/playwright", "why": "Browser automation/testing framework."},
     {"repo": "microsoft/playwright-cli", "why": "CLI wrapper for recording/generating Playwright code."},
-    {"repo": "TestSprite/testsprite-cli", "why": "AI-powered test generation CLI."}
+    {"repo": "TestSprite/testsprite-cli", "why": "AI-powered test generation CLI."},
+    {"name": "gh CLI", "repo": "cli/cli", "install": "winget install --id GitHub.cli  |  brew install gh", "url": "https://cli.github.com/"},
+    {"name": "ctx7 CLI", "package": "ctx7", "install": "npm i -g ctx7  or  npx ctx7@latest setup --opencode", "url": "https://github.com/upstash/context7"},
+    {"name": "chrome-devtools-mcp", "package": "chrome-devtools-mcp", "install": "npx -y chrome-devtools-mcp@latest", "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp"},
+    {"name": "mcp-supersubagents", "package": "mcp-supersubagents", "install": "npx -y mcp-supersubagents", "url": "https://github.com/yigitkonur/mcp-supersubagents"}
   ],
 
   "not_applicable": [

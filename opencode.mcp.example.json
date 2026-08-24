@@ -1,0 +1,33 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "_comment": "Copy the 'mcp' and 'plugin' keys you want into your real opencode.json (~/.config/opencode/opencode.json for global, or ./.opencode/opencode.json for project). This file is just a ready-to-paste example for the osmeng-agent-starter add-ons.",
+  "mcp": {
+    "chrome-devtools": {
+      "type": "local",
+      "command": ["npx", "-y", "chrome-devtools-mcp@latest", "--browser-url=http://127.0.0.1:9222"],
+      "enabled": true
+    },
+    "context7": {
+      "type": "remote",
+      "url": "https://mcp.context7.com/mcp",
+      "enabled": true
+    },
+    "supersubagents": {
+      "type": "local",
+      "command": ["npx", "-y", "mcp-supersubagents"],
+      "enabled": true
+    }
+  },
+  "plugin": [
+    "superpowers@git+https://github.com/obra/superpowers.git",
+    "@upstash/context7-opencode"
+  ],
+  "_notes": {
+    "chrome-devtools": "Requires Chrome stable + Node LTS. Remove --browser-url flag to let MCP launch Chrome itself. Set enabled:false to disable without deleting.",
+    "context7": "Alternative to the remote MCP: run 'npx ctx7 setup --opencode' which auto-configures, OR keep the plugin '@upstash/context7-opencode' without the remote entry. Don't enable both at once if they duplicate tools.",
+    "supersubagents": "Node 18+. Pure MCP (no SKILL.md). Provides spawn/cancel/launch-* tools with Codex/Copilot/Claude backends.",
+    "superpowers": "Also installs 14 SKILL.md files via install.sh; the plugin and the file copy coexist. Remove either if you prefer one mechanism.",
+    "agent-swarm": "No MCP entry needed for OpenCode — its 19 skills (spawn/orchestrate/...) work as plain SKILL.md files. For Claude Code only: 'claude plugin install agent-swarm'.",
+    "gh": "No MCP — it's a CLI. Install via winget/brew and auth with 'gh auth login'. Skills 'gh' + 'gh-skill' are already installed."
+  }
+}
