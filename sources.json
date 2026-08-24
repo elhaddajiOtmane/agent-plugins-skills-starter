@@ -1,0 +1,100 @@
+{
+  "_comment": "Reference manifest for osmeng-agent-starter. install.sh has this logic baked in directly (no JSON parser dependency) — edit both files together if you add a source.",
+  "generated_from": "https://github.com/stars/elhaddajiOtmane/lists/skills",
+
+  "core": [
+    {
+      "name": "taste-skill",
+      "repo": "Leonxlnx/taste-skill",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 13,
+      "note": "Design-taste / anti-slop skills (brandkit, brutalist, minimalist, redesign, image-to-code, etc.)"
+    },
+    {
+      "name": "ponytail",
+      "repo": "DietrichGebert/ponytail",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 6,
+      "note": "Minimal-diff / 'laziest senior dev' coding discipline. Also mirrored under .openclaw/skills — installer only reads skills/."
+    },
+    {
+      "name": "claude-seo (core)",
+      "repo": "AgriciDaniel/claude-seo",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 25,
+      "note": "Technical SEO / schema / GEO / content skills that need no paid API key. 8 more skills live under extensions/<provider>/skills/ (Ahrefs, SE Ranking, DataForSEO, Bing Webmaster, Profound, Firecrawl, unlighthouse, banana image-gen) — those need that provider's API key, so the installer skips them; add manually if you have the accounts."
+    },
+    {
+      "name": "obsidian-skills",
+      "repo": "kepano/obsidian-skills",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 5,
+      "note": "Obsidian CLI, Bases, JSON Canvas, Markdown, defuddle. Needs Obsidian running for the CLI parts."
+    },
+    {
+      "name": "mattpocock/skills",
+      "repo": "mattpocock/skills",
+      "skills_path": "skills",
+      "depth": 2,
+      "skill_count": 37,
+      "note": "Nested by category: skills/<engineering|productivity|misc|in-progress>/<name>/SKILL.md. Installer flattens and prefixes as '<category>-<name>' to avoid collisions."
+    }
+  ],
+
+  "mega_opt_in": [
+    {
+      "name": "ECC",
+      "repo": "affaan-m/ECC",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 286,
+      "note": "Huge general-purpose skill library (languages, frameworks, security, healthcare compliance, logistics, finance, agent-harness patterns...). Repo also mirrors the same skills under .cursor/, .kiro/, .agents/, and localized docs/<lang>/ trees — installer only reads the canonical top-level skills/. Cherry-picking individual folders is usually more useful than installing all 286."
+    },
+    {
+      "name": "OmniRoute",
+      "repo": "diegosouzapw/OmniRoute",
+      "skills_path": "skills",
+      "depth": 1,
+      "skill_count": 46,
+      "note": "Skills for driving OmniRoute itself (an AI gateway: one endpoint, 350+ model providers). Only useful if you actually deploy OmniRoute."
+    }
+  ],
+
+  "documented_not_installed": [
+    {
+      "name": "ruflo",
+      "repo": "ruvnet/ruflo",
+      "why": "Full agent meta-harness/orchestration framework (swarm coordination, AgentDB, etc.), not a plain skill pack. 350+ SKILL.md files live inside its own plugins/<plugin>/skills/ system and depend on the ruflo runtime being installed — copying the folders alone won't work. Has its own installer; see the repo README."
+    },
+    {
+      "name": "claude-mem",
+      "repo": "thedotmack/claude-mem",
+      "why": "Persistent cross-session memory plugin. Its ~20 skills (mem-search, timeline-report, standup, etc.) operate on data captured by claude-mem's own hook/backend, so they need the real plugin installed, not just the SKILL.md folders. See the repo README."
+    },
+    {
+      "name": "headroom",
+      "repo": "headroomlabs-ai/headroom",
+      "why": "Token-compression proxy/library/MCP server for tool output — a running service, not a skill at all."
+    },
+    {
+      "name": "awesome-design-md",
+      "repo": "VoltAgent/awesome-design-md",
+      "why": "A collection of DESIGN.md reference files meant to be dropped straight into a project root so a coding agent picks up brand/design conventions from context — not the SKILL.md format, so it isn't something 'installed' as a skill."
+    }
+  ],
+
+  "companion_clis": [
+    {"repo": "supabase/cli", "why": "Tools skills can shell out to. Install via each project's own documented method (not npm -g in Supabase's case) — see repo README."},
+    {"repo": "microsoft/playwright", "why": "Browser automation/testing framework."},
+    {"repo": "microsoft/playwright-cli", "why": "CLI wrapper for recording/generating Playwright code."},
+    {"repo": "TestSprite/testsprite-cli", "why": "AI-powered test generation CLI."}
+  ],
+
+  "not_applicable": [
+    {"repo": "lightningpixel/modly", "why": "Local desktop app for image-to-3D-model generation — unrelated to coding agents/skills."}
+  ]
+}
